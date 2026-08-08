@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">SysAdmin Tools</string>
+    <string name="nav_calendar">Календарь</string>
+    <string name="nav_clients">Клиенты</string>
+    <string name="nav_notes">Заметки</string>
+    <string name="add_client">Добавить клиента</string>
+    <string name="add_visit">Добавить компанию на день</string>
+</resources>
