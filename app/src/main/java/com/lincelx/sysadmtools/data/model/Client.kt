@@ -15,4 +15,5 @@ data class Client(
     val phone: String = "",
     val note: String = "",
     val customFields: List<CustomField> = emptyList(),
+    val category: String = "",
 )

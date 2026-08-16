@@ -4,6 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Notes
 import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.People
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class AppDestination(
@@ -25,5 +26,10 @@ enum class AppDestination(
         route = "notes",
         titleRes = com.lincelx.sysadmtools.R.string.nav_notes,
         icon = Icons.AutoMirrored.Filled.Notes,
+    ),
+    Settings(
+        route = "settings",
+        titleRes = com.lincelx.sysadmtools.R.string.nav_settings,
+        icon = Icons.Default.Settings,
     ),
 }

@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
@@ -22,7 +24,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
@@ -136,7 +137,7 @@ fun MonthCalendar(
                                 isSelected = date == selectedDate,
                                 isToday = date == today,
                                 isPast = isPast,
-                                onClick = { if (!isPast) onDateSelected(date) },
+                                onClick = { onDateSelected(date) },
                                 modifier = Modifier.weight(1f),
                             )
                         } else {
@@ -160,7 +161,7 @@ private fun CalendarDayCell(
     modifier: Modifier = Modifier,
 ) {
     val backgroundColor = when {
-        isPast -> MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        isPast -> MaterialTheme.colorScheme.surface
         isSelected -> MaterialTheme.colorScheme.primary
         isToday -> MaterialTheme.colorScheme.primaryContainer
         else -> MaterialTheme.colorScheme.surface
@@ -182,34 +183,27 @@ private fun CalendarDayCell(
         modifier = modifier
             .aspectRatio(1f)
             .padding(2.dp)
-            .alpha(if (isPast) 0.6f else 1f)
             .clip(CircleShape)
             .background(backgroundColor)
-            .then(
-                if (!isPast) {
-                    Modifier.clickable(onClick = onClick)
-                } else {
-                    Modifier
-                },
-            )
+            .clickable(onClick = onClick)
             .semantics { contentDescription = "День $day" },
-        contentAlignment = Alignment.Center,
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(
+            text = day.toString(),
+            style = MaterialTheme.typography.bodyLarge,
+            color = textColor,
+            fontWeight = if (isToday || isSelected) FontWeight.Bold else FontWeight.Normal,
+            modifier = Modifier.align(Alignment.Center),
+        )
+        if (visitCount > 0) {
             Text(
-                text = day.toString(),
-                style = MaterialTheme.typography.bodyLarge,
-                color = textColor,
-                fontWeight = if (isToday || isSelected) FontWeight.Bold else FontWeight.Normal,
+                text = visitCount.toString(),
+                fontSize = 11.sp,
+                color = countColor,
+                fontWeight = FontWeight.Medium,
+                modifier = Modifier
+                    .align(Alignment.BottomCenter)
             )
-            if (visitCount > 0) {
-                Text(
-                    text = visitCount.toString(),
-                    fontSize = 10.sp,
-                    color = countColor,
-                    fontWeight = FontWeight.Medium,
-                )
-            }
         }
     }
 }

@@ -4,7 +4,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.lincelx.sysadmtools.data.model.Client
+import com.lincelx.sysadmtools.data.prefs.SharedPreferencesManager
+import com.lincelx.sysadmtools.data.repository.ClientRepository
+import kotlinx.coroutines.launch
 
 class ClientsViewModel : ViewModel() {
     var clients by mutableStateOf<List<Client>>(emptyList())
@@ -15,6 +19,19 @@ class ClientsViewModel : ViewModel() {
 
     var selectedClientId by mutableStateOf<String?>(null)
         private set
+
+    private lateinit var repository: ClientRepository
+
+    fun init(prefs: SharedPreferencesManager) {
+        repository = ClientRepository(prefs)
+        loadClients()
+    }
+
+    fun loadClients() {
+        viewModelScope.launch {
+            clients = repository.getClients()
+        }
+    }
 
     fun openAddForm() {
         showAddForm = true
@@ -33,8 +50,19 @@ class ClientsViewModel : ViewModel() {
     }
 
     fun addClient(client: Client) {
-        clients = clients + client
+        viewModelScope.launch {
+            repository.addClient(client)
+            clients = repository.getClients()
+        }
         closeAddForm()
+    }
+
+    fun deleteClient(id: String) {
+        viewModelScope.launch {
+            repository.deleteClient(id)
+            clients = repository.getClients()
+        }
+        closeDetail()
     }
 
     fun getClient(id: String): Client? = clients.find { it.id == id }

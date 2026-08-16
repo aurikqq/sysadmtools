@@ -1,8 +1,13 @@
 <resources>
-    <string name="app_name">SysAdmin Tools</string>
+    <string name="app_name">SAH</string>
     <string name="nav_calendar">Календарь</string>
     <string name="nav_clients">Клиенты</string>
     <string name="nav_notes">Заметки</string>
+    <string name="nav_settings">Настройки</string>
     <string name="add_client">Добавить клиента</string>
-    <string name="add_visit">Добавить компанию на день</string>
+    <string name="add_visit">Добавить клиента на день</string>
+    <string name="exact_alarm_dialog_title">Разрешения на уведомления и будильники</string>
+    <string name="exact_alarm_dialog_message">Для работы утренних и постоянных уведомлений приложению нужно разрешение на отправку уведомлений и установку точных будильников. Пожалуйста, подтвердите запрос и выдайте разрешения в настройках системы.</string>
+    <string name="exact_alarm_dialog_confirm">Продолжить</string>
+    <string name="exact_alarm_dialog_dismiss">Позже</string>
 </resources>
